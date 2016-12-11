@@ -7,27 +7,27 @@ var currentMonth = today.getMonth();
 var animationDuration = 1500;
 var animationEasing = "easeOut";
 
-var clientData = {
-  startingMonth: 3, //jan=0, feb=1...
-  monthlyHours: 6,
-  monthlyBal: { //this can be changed to an array but is an object for easier viewing/editing
-    0: 0,
-    1: 0,
-    2: 0,
-    3: 4,
-    4: 0,
-    5: 2,
-    6: 6,
-    7: 5,
-    8: 0,
-    9: 0,
-    10: 0,
-    11: 0
-  },
-  annualHours: 36,
-  annualBal: 17,
-  lastBackup: new Date('2016-12-14T07:32:00'),
-  monthlyBenefits: '',
+var clientData = new function() {
+  this.startingMonth = Math.floor(Math.random() * 12); //jan=0, feb=1...
+  this.monthlyHours = Math.floor(Math.random() * 9) + 3;
+  this.monthlyBal = { //this can be changed to an array but is an object for easier viewing/editing
+    0: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    1: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    2: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    3: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    4: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    5: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    6: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    7: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    8: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    9: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    10: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    11: Math.floor(Math.random() * (this.monthlyHours + 1)),
+  };
+  this.annualHours = 12 * (Math.floor(Math.random() * 4) + 1);
+  this.annualBal = Math.floor(Math.random() * this.annualHours) + 1;
+  this.lastBackup = new Date('2015-12-14T07:32:00');
+  this.monthlyBenefits = '';
 };
 var monthlyBenefits = "<h4>These are your current monthly benefits.</h4><ul><li>Benefit number 1.</li><li>Benefit number 2.</li></ul>";
 
