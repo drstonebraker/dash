@@ -10,19 +10,24 @@ var animationEasing = "easeOut";
 var clientData = new function() {
   this.startingMonth = Math.floor(Math.random() * 12); //jan=0, feb=1...
   this.monthlyHours = Math.floor(Math.random() * 9) + 3;
+  function setMonthlyBal(month) {
+    if (month <= currentMonth && month >= this.startingMonth) {
+      return Math.floor(Math.random() * (this.monthlyHours + 1))
+    }
+  };
   this.monthlyBal = { //this can be changed to an array but is an object for easier viewing/editing
-    0: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    1: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    2: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    3: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    4: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    5: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    6: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    7: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    8: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    9: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    10: Math.floor(Math.random() * (this.monthlyHours + 1)),
-    11: Math.floor(Math.random() * (this.monthlyHours + 1)),
+    0: setMonthlyBal.call(this, 0),
+    1: setMonthlyBal.call(this, 1),
+    2: setMonthlyBal.call(this, 2),
+    3: setMonthlyBal.call(this, 3),
+    4: setMonthlyBal.call(this, 4),
+    5: setMonthlyBal.call(this, 5),
+    6: setMonthlyBal.call(this, 6),
+    7: setMonthlyBal.call(this, 7),
+    8: setMonthlyBal.call(this, 8),
+    9: setMonthlyBal.call(this, 9),
+    10: setMonthlyBal.call(this, 10),
+    11: setMonthlyBal.call(this, 11),
   };
   this.annualHours = 12 * (Math.floor(Math.random() * 4) + 1);
   this.annualBal = Math.floor(Math.random() * this.annualHours) + 1;
@@ -527,12 +532,10 @@ window.onload = function onLoad() {
         step: function(state, circle) {
 
           var value = Math.round(circle.value() * clientData.monthlyHours);
-          if (value === 0 && monthlyBalIteration <= currentMonth && monthlyBalIteration >= clientData.startingMonth) { //if hours used is 0 and month has already occured in current billing year.
-            circle.setText('0');
-          } else if (value === 0) {
-            circle.setText('-');
-          } else {
+          if (monthlyBalIteration <= currentMonth && monthlyBalIteration >= clientData.startingMonth) { //if hours used is 0 and month has already occured in current billing year.
             circle.setText(value);
+          } else {
+            circle.setText('-');
           }
 
         }
