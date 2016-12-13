@@ -268,6 +268,26 @@ $( document ).ready(function() {
    content: $('#benefits__content').show().detach(),
    contentCloning: false
   });
+  
+  $('#alert').tooltipster({
+   animation: 'grow',
+   delay: 100,
+   trigger: 'custom',
+   plugins: ['sideTip'],
+   content: $('#alert__tooltip').show().detach(),
+   contentCloning: false
+  });
+  
+  setTimeout(function() {
+    
+    $('#alert').tooltipster('open').css('background', "#d50000");
+    
+    setTimeout(function() {
+      $('#alert').tooltipster('close').css('background', "");
+    }, 2000)
+    
+  }, 1300)
+  
 
 //when alert button is clicked, open the form
   $('#alert').click(function(){
