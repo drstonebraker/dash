@@ -32,21 +32,22 @@ var clientData = new function() {
       return Math.floor(Math.random() * (this.monthlyHours + 1))
     }
   };
-  this.monthlyBal = { //this can be changed to an array but is an object for easier viewing/editing
-    0: setMonthlyBal.call(this, 0),
-    1: setMonthlyBal.call(this, 1),
-    2: setMonthlyBal.call(this, 2),
-    3: setMonthlyBal.call(this, 3),
-    4: setMonthlyBal.call(this, 4),
-    5: setMonthlyBal.call(this, 5),
-    6: setMonthlyBal.call(this, 6),
-    7: setMonthlyBal.call(this, 7),
-    8: setMonthlyBal.call(this, 8),
-    9: setMonthlyBal.call(this, 9),
-    10: setMonthlyBal.call(this, 10),
-    11: setMonthlyBal.call(this, 11),
-  };
-  if (demonstration && Object.values(this.monthlyBal).indexOf(this.monthlyHours) == -1) {
+    this.monthlyBal = [ //sets balances for each month in order
+    setMonthlyBal.call(this, 0), //jan
+    setMonthlyBal.call(this, 1), //feb
+    setMonthlyBal.call(this, 2), //mar
+    setMonthlyBal.call(this, 3), //apr
+    setMonthlyBal.call(this, 4), //may
+    setMonthlyBal.call(this, 5), //jun
+    setMonthlyBal.call(this, 6), //jul
+    setMonthlyBal.call(this, 7), //aug
+    setMonthlyBal.call(this, 8), //sep
+    setMonthlyBal.call(this, 9), //oct
+    setMonthlyBal.call(this, 10),//nov
+    setMonthlyBal.call(this, 11) //dec
+  ];
+
+  if (demonstration && this.monthlyBal.indexOf(this.monthlyHours) == -1) {
     this.monthlyBal[Math.floor(Math.random() * (currentMonth - this.startingMonth)) + this.startingMonth] = this.monthlyHours
   } //for demonstration purposes, set one random month to full usage (so annual usage makes sense)
   this.annualHours = 12 * (Math.floor(Math.random() * 4) + 1);
