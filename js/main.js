@@ -474,12 +474,6 @@ window.onload = function onLoad() {
     var twelveHour;
     var doubleDigitMins;
 
-    //workaround .getHours timezone bug in IE and Edge
-    if (isIE || isEdge) {
-      var timezoneDiff = Math.floor(date.getTimezoneOffset() / 60);
-      fullHour -= timezoneDiff;
-    }
-
     //set AM or PM and convert .getHours to 12-hour time.
     if (fullHour > 11){
       amOrPm = 'PM';
