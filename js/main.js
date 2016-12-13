@@ -1,6 +1,7 @@
 var today = new Date();
 var currentMonth = today.getMonth();
 const BACKUP_OPTIONS = [1, 7, 14, 30] //num of days between each backup... used to randomly set date for demonstration
+var demonstration = true // to turn off some logic intended only for showing random client data
 
 const MONTHS = [
   'JAN',
@@ -45,6 +46,9 @@ var clientData = new function() {
     10: setMonthlyBal.call(this, 10),
     11: setMonthlyBal.call(this, 11),
   };
+  if (demonstration && Object.values(this.monthlyBal).indexOf(this.monthlyHours) == -1) {
+    this.monthlyBal[Math.floor(Math.random() * (currentMonth - this.startingMonth)) + this.startingMonth] = this.monthlyHours
+  } //for demonstration purposes, set one random month to full usage (so annual usage makes sense)
   this.annualHours = 12 * (Math.floor(Math.random() * 4) + 1);
   this.annualBal = Math.floor(Math.random() * this.annualHours) + 1;
   this.backupFrequency = BACKUP_OPTIONS[Math.floor(Math.random() * BACKUP_OPTIONS.length)];
@@ -286,9 +290,9 @@ $( document ).ready(function() {
     
     setTimeout(function() {
       $('#alert').tooltipster('close').css('background', "");
-    }, 2000)
+    }, 2300)
     
-  }, 1300)
+  }, animationDuration + 700)
   
 
 //when alert button is clicked, open the form
