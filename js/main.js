@@ -1,20 +1,21 @@
 var today = new Date();
 var currentMonth = today.getMonth();
+const BACKUP_OPTIONS = [1, 7, 14, 30] //num of days between each backup... used to randomly set date for demonstration
 
-const MONTHS = {
-  0: 'JAN',
-  1: 'FEB',
-  2: 'MAR',
-  3: 'APR',
-  4: 'MAY',
-  5: 'JUN',
-  6: 'JUL',
-  7: 'AUG',
-  8: 'SEP',
-  9: 'OCT',
-  10: 'NOV',
-  11: 'DEC'
-}
+const MONTHS = [
+  'JAN',
+  'FEB',
+  'MAR',
+  'APR',
+  'MAY',
+  'JUN',
+  'JUL',
+  'AUG',
+  'SEP',
+  'OCT',
+  'NOV',
+  'DEC'
+]
 
 /* ==========================================================================
    USE THESE VARS TO CONFIGURE DASHBOARD FOR INDIVIDUAL CLIENT
@@ -46,10 +47,11 @@ var clientData = new function() {
   };
   this.annualHours = 12 * (Math.floor(Math.random() * 4) + 1);
   this.annualBal = Math.floor(Math.random() * this.annualHours) + 1;
-  this.lastBackup = new Date('2015-12-14T07:32:00');
+  this.backupFrequency = BACKUP_OPTIONS[Math.floor(Math.random() * BACKUP_OPTIONS.length)];
+  this.lastBackup = new Date(Math.floor(Math.random() * 86400000 * this.backupFrequency) + (Date.now() - 86400000 * this.backupFrequency));
   this.monthlyBenefits = '';
 };
-var monthlyBenefits = "<h4>Your subscription plan includes:</h4><ul><li>" + clientData.monthlyHours + " hours of work each month</li><li>" + clientData.annualHours + " additional hours of work each year (" + MONTHS[clientData.startingMonth] + " through " + MONTHS[clientData.startingMonth - 1] + ")</li></ul></br>";
+var monthlyBenefits = "<h4>Your subscription plan includes:</h4><ul><li>" + clientData.monthlyHours + " hours of work each month</li><li>" + clientData.annualHours + " additional hours of work each year (" + MONTHS[clientData.startingMonth] + " through " + (MONTHS[clientData.startingMonth - 1] || "DEC") + ")</li><li>Automatic backup every " + clientData.backupFrequency + " days</li></ul></br>";
 
 //*********************************
 // END OF CONFIGURABLE VARS
@@ -496,7 +498,7 @@ window.onload = function onLoad() {
 
     var lastBackupString =
       '' + (date.getMonth() + 1) + '/'
-      + (date.getDate() + 1) + '/'
+      + (date.getDate()) + '/'
       + date.getFullYear().toString().slice(-2) + ' · '
       + twelveHour + ':'
       + doubleDigitMins
